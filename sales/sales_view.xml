@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <menuitem id="menu_sales_root" name="销售" sequence="10" />
+
+        <menuitem id="menu_sales" parent="menu_sales_root" name="销售管理" sequence="10" />
+
+        <menuitem id="menu_sales_config" parent="menu_sales_root" name="基础信息管理" sequence="100" />
+
+        <record id="view_sales_product_tree" model="ir.ui.view">
+            <field name="name">sales.product.tree</field>
+            <field name="model">sales.product</field>
+            <field name="arch" type="xml">
+                <tree string="产品">
+                    <field name="name" />
+                    <field name="unit_price"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_sales_product_form" model="ir.ui.view">
+            <field name="name">sales.product.form</field>
+            <field name="model">sales.product</field>
+            <field name="arch" type="xml">
+                <form string="产品">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="unit_price"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_sales_product" model="ir.actions.act_window">
+            <field name="name">产品</field>
+            <field name="res_model">sales.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="产品管理" action="action_sales_product" id="menu_sales_product" parent="menu_sales_config" sequence="10" />
+
+
+        <record id="view_sales_customer_tree" model="ir.ui.view">
+            <field name="name">sales.customer.tree</field>
+            <field name="model">sales.customer</field>
+            <field name="arch" type="xml">
+                <tree string="客户" editable="bottom">
+                    <field name="name" />
+                    <field name="address"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_sales_customer" model="ir.actions.act_window">
+            <field name="name">客户</field>
+            <field name="res_model">sales.customer</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem name="客户管理" action="action_sales_customer" id="menu_sales_customer" parent="menu_sales_config" sequence="20" />
+
+
+        <record id="view_sales_order_tree" model="ir.ui.view">
+            <field name="name">sales.order.tree</field>
+            <field name="model">sales.order</field>
+            <field name="arch" type="xml">
+                <tree string="销售订单">
+                    <field name="name" />
+                    <field name="order_time"/>
+                    <field name="price_total"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_sales_order_form" model="ir.ui.view">
+            <field name="name">sales.order.form</field>
+            <field name="model">sales.order</field>
+            <field name="arch" type="xml">
+                <form string="销售订单">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="customer" />
+                            <field name="order_time"/>
+                        </group>
+                        <group>
+                            <field name="price_total"/>
+                        </group>
+                        <field name="lines" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="name" />
+                                <field name="unit_price" />
+                                <field name="quantity" />
+                                <field name="subtotal" />
+                            </tree>
+                        </field>
+                        <field name="note" nolabel="1" placeholder="这里添加备注..." />
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_sales_order_calendar" model="ir.ui.view">
+            <field name="name">sales.order.calendar</field>
+            <field name="model">sales.order</field>
+            <field name="arch" type="xml">
+                <calendar string="销售订单" color="customer"
+                          date_start="order_time" quick_add="True" >
+                    <field name="name"/>
+                    <field name="price_total"/>
+                </calendar>
+            </field>
+        </record>
+        <record id="action_sales_order" model="ir.actions.act_window">
+            <field name="name">销售订单</field>
+            <field name="res_model">sales.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+        </record>
+        <menuitem name="销售订单管理" action="action_sales_order" id="menu_sales_order" parent="menu_sales" sequence="10" />
+
+    </data>
+</openerp>
