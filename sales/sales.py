@@ -32,7 +32,7 @@ class Order(models.Model):
     name = fields.Char(u'单号', required=True)
     customer = fields.Many2one('sales.customer', u'客户', required=True)
     order_time = fields.Datetime(u'下单时间', required=True, default=fields.Datetime.now())
-    lines = fields.One2many('sales.order.line', 'order', u'订单明细')
+    lines = fields.One2many('sales.order.line', 'sales_order', u'订单明细')
     price_total = fields.Float(u'总价', compute='_sum_price')
     note = fields.Text(u'备注')
 
@@ -49,7 +49,7 @@ class OrderLine(models.Model):
     u'''销售订单明细'''
     _name = 'sales.order.line'
 
-    order = fields.Many2one('sales.order', u'订单', index=True, required=True, ondelete='cascade')
+    sales_order = fields.Many2one('sales.order', u'订单', index=True, required=True, ondelete='cascade')
     name = fields.Many2one('sales.product', u'产品', required=True)
     quantity = fields.Float(u'数量', required=True)
     unit_price = fields.Float(u'单价', required=True)
